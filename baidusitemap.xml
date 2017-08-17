@@ -3,11 +3,28 @@
 
 
     
-    
+  <url>
+    <loc>http://yoursite.com/2017/08/17/overthewire%E6%94%BB%E7%95%A5/</loc>
+    <lastmod>2017-08-17T07:35:04.054Z</lastmod>
+    <data>
+        <display>
+        <title>overthewire攻略</title>
+        <pubTime>2017-08-17T01:28:04.000Z</pubTime>
+        
+        <tag>linux</tag>
+         
+        <tag>security concepts</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
     
   <url>
     <loc>http://yoursite.com/2017/08/15/Hexo-Next%E4%B8%BB%E9%A2%98%E8%87%AA%E5%AE%9A%E4%B9%89%E8%89%B2%E5%BD%A9/</loc>
-    <lastmod>2017-08-16T02:42:02.054Z</lastmod>
+    <lastmod>2017-08-16T05:36:42.760Z</lastmod>
     <data>
         <display>
         <title>Hexo Next主题自定义色彩</title>
@@ -21,6 +38,8 @@
     </data>
     </url>
 
+    
+    
     
   <url>
     <loc>http://yoursite.com/2017/08/14/hello-world/</loc>
