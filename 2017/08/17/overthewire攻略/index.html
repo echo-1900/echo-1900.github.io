@@ -93,7 +93,7 @@
 <meta property="og:description" content="前言 对一个初学安全的人而言，难的往往不是缺乏耐心或毅力，而是完全找不到切入点，因而常常会在许多地方兜圈子而不是快速进步，为了解决这一问题，overthewire诞生了，该站以游戏的方式寓学于乐，帮助大家快速地掌握安全概念并介绍许多存在且常见的安全问题及其解决方案。但既是游戏便难免会卡壳，虽然游戏中也有提示，但为了避免遗忘及方便查阅，在这里还是先写一篇攻略。  话不多说，开撸！  Banditle">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/bandit16.png">
-<meta property="og:updated_time" content="2017-08-20T05:42:44.352Z">
+<meta property="og:updated_time" content="2017-08-20T07:27:25.337Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="overthewire攻略">
 <meta name="twitter:description" content="前言 对一个初学安全的人而言，难的往往不是缺乏耐心或毅力，而是完全找不到切入点，因而常常会在许多地方兜圈子而不是快速进步，为了解决这一问题，overthewire诞生了，该站以游戏的方式寓学于乐，帮助大家快速地掌握安全概念并介绍许多存在且常见的安全问题及其解决方案。但既是游戏便难免会卡壳，虽然游戏中也有提示，但为了避免遗忘及方便查阅，在这里还是先写一篇攻略。  话不多说，开撸！  Banditle">
@@ -344,34 +344,28 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">mkdir /tmp/1900</div><div class="line"><span class="built_in">cd</span> /tmp/1900</div><div class="line">touch sshkey.private</div><div class="line">vi sshkey.private</div><div class="line">chomd 600 sshkey.private</div><div class="line">ssh -i ./sshkey.private bandit17@localhost</div></pre></td></tr></table></figure>
 <h3 id="level_17_-_26gt_3B_level_18"><a href="#level_17_-_26gt_3B_level_18" class="headerlink" title="level 17 -&gt; level 18"></a>level 17 -&gt; level 18</h3><p>执行<code>diff passwords.new passwords.old</code>即可得到两文本中的不同行。<br><strong>flag：kfBf3eYk5BPBRzwjqutbbfE887SVc5Yd</strong><br>附：<a href="http://man.linuxde.net/diff" target="_blank" rel="external">linux diff命令用法</a>  </p>
 <h3 id="level_18_-_26gt_3B_level_19"><a href="#level_18_-_26gt_3B_level_19" class="headerlink" title="level 18 -&gt; level 19"></a>level 18 -&gt; level 19</h3><p>直接连接后退出，因而选择用<code>ssh bandit18@bandit.labs.overthewire.org cat readme</code>  连接后输入上一关所得密钥即可登入。 具体解释可参考<a href="https://wido.me/sunteya/understand-bashrc-and-profile" target="_blank" rel="external"> 《理解 bashrc 和 profile》</a>。<br><strong>flag：IueksS7Ubh8G3DCwVzrTd8rAVOwq3M5x</strong>  </p>
-<h3 id="level_19_-_26gt_3B_level_20"><a href="#level_19_-_26gt_3B_level_20" class="headerlink" title="level 19 -&gt; level 20"></a>level 19 -&gt; level 20</h3><pre><code class="bash">./bandit20-do <span class="comment"># 执行以查看操作说明</span>
-./bandit20-do id <span class="comment"># 根据说明再次执行，实际上该可执行文件是用setuid命令给当前用户授权</span>
-./bandit20-do whoami <span class="comment"># 查看setuid后身份</span>
-./bandit20-do cat /etc/bendit_pass/bandit20 <span class="comment"># 以bandit20身份查询密钥</span>
-</code></pre>
+<h3 id="level_19_-_26gt_3B_level_20"><a href="#level_19_-_26gt_3B_level_20" class="headerlink" title="level 19 -&gt; level 20"></a>level 19 -&gt; level 20</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">./bandit20-do <span class="comment"># 执行以查看操作说明</span></div><div class="line">./bandit20-do id <span class="comment"># 根据说明再次执行，实际上该可执行文件是用setuid命令给当前用户授权</span></div><div class="line">./bandit20-do whoami <span class="comment"># 查看setuid后身份</span></div><div class="line">./bandit20-do cat /etc/bendit_pass/bandit20 <span class="comment"># 以bandit20身份查询密钥</span></div></pre></td></tr></table></figure>
 <p><strong>flag:GbKksEFF4yrVs6il55v6gwY5aVje5f0j</strong><br>(具体参见<a href="http://nba20717zcx.blog.51cto.com/343890/392063" target="_blank" rel="external">Setuid命令使用及攻防详解</a>)  </p>
-<h3 id="level_20_-_26gt_3B_level_21"><a href="#level_20_-_26gt_3B_level_21" class="headerlink" title="level 20 -&gt; level 21"></a>level 20 -&gt; level 21</h3><p>这关大致就是开两个终端然后都登入bendit20用户，然后一个用nc监听任意未占用端口充当服务端，另一个通过运行”suconnect”程序充当客户端来连接先前服务端，再在服务端贴上bandit20用户的密码，服务端将自行比对接收的字符串与bandit20用户的密码是否一致，若一致则显示下一关密码。  </p>
-<blockquote>
-<p>nc用法具体参见<a href="https://docs.oracle.com/cd/E56344_01/html/E54075/netcat-1.html" target="_blank" rel="external">netcat 中文手册</a>  </p>
-</blockquote>
-<pre><code class="bash"><span class="comment">#服务端</span>
-nc -nvlp 1900
-
-<span class="comment">#客户端</span>
-./suconnect 1900
-
-<span class="comment">#服务端</span>
-GbKksEFF4yrVs6il55v6gwY5aVje5f0j
-
-<span class="comment">#服务端回显</span>
-gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr
-Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j
-Password matches, sending next password
-</code></pre>
+<h3 id="level_20_-_26gt_3B_level_21"><a href="#level_20_-_26gt_3B_level_21" class="headerlink" title="level 20 -&gt; level 21"></a>level 20 -&gt; level 21</h3><p>这关大致就是开两个终端然后都登入bendit20用户，然后一个用nc监听任意未占用端口充当服务端，另一个通过运行”suconnect”程序充当客户端来连接先前服务端，再在服务端贴上bandit20用户的密码，服务端将自行比对接收的字符串与bandit20用户的密码是否一致，若一致则显示下一关密码。<br>附：nc用法具体参见<a href="https://docs.oracle.com/cd/E56344_01/html/E54075/netcat-1.html" target="_blank" rel="external">netcat 中文手册</a>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#服务端</span></div><div class="line">nc -nvlp 1900</div><div class="line"></div><div class="line"><span class="comment">#客户端</span></div><div class="line">./suconnect 1900</div><div class="line"></div><div class="line"><span class="comment">#服务端</span></div><div class="line">GbKksEFF4yrVs6il55v6gwY5aVje5f0j</div><div class="line"></div><div class="line"><span class="comment">#服务端回显</span></div><div class="line">gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr</div><div class="line">Read: GbKksEFF4yrVs6il55v6gwY5aVje5f0j</div><div class="line">Password matches, sending next password</div></pre></td></tr></table></figure>
 <p><strong>flag：gE269g2h3mw3pwgrj0Ha9Uoqen1c9DGr</strong>  </p>
 <h3 id="level_21_-_26gt_3B_level_22"><a href="#level_21_-_26gt_3B_level_22" class="headerlink" title="level 21 -&gt; level 22"></a>level 21 -&gt; level 22</h3><p>根据提示进入”/etc/cron.d/“目录下查看该目录下的文件，发现有计划任务”cronjob_bandit22”, <code>cat cronjob_bandit22</code> 后返现该任务是一直在后台将”/usr/bin/cronjob_bandit22.sh” 的输出重定向到”/dev/null”，  执行<code>cat /usr/bin/cronjob_bandit22.sh</code>， 发现线索”cat /etc/bandit_pass/bandit22 &gt; /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv”， 于是<code>cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv</code> 即可得答案。<br><strong>flag：Yk7owGAcWjwMVRwrTesJEwB7WVOiILLI</strong><br>附：关于crontab命令的介绍 <a href="http://www.cnblogs.com/peida/archive/2013/01/08/2850483.html" target="_blank" rel="external">  crontab</a>  </p>
 <h3 id="level_22__26gt_3B_level_23"><a href="#level_22__26gt_3B_level_23" class="headerlink" title="level 22 &gt; level 23"></a>level 22 &gt; level 23</h3><p>通过查看”cronjob_bandit23”找到”/usr/bin/cronjob_bandit23.sh”，查看一下，发现是个简单的脚本，于是构造一个’$myname=bandit23’的符合脚本要求的字符串并求哈希，<code>echo I am user bandit23 | md5sum | cut -d &#39; &#39; -f 1</code> ， 得到值 ‘8ca319486bfbbc3663ea0fbe81326349’，于是<code>cat /tmp/8ca319486bfbbc3663ea0fbe81326349</code>即可得flag。<br><strong>flag：jc1udXuA1tiHqjIsL8yaapX5XIAI6i0n</strong><br>附：<a href="http://man.linuxde.net/cut" target="_blank" rel="external">linux cut 命令使用说明</a></p>
-<h3 id="level_23_-_26gt_3B_level_24"><a href="#level_23_-_26gt_3B_level_24" class="headerlink" title="level 23 -&gt; level 24"></a>level 23 -&gt; level 24</h3>
+<h3 id="level_23_-_26gt_3B_level_24"><a href="#level_23_-_26gt_3B_level_24" class="headerlink" title="level 23 -&gt; level 24"></a>level 23 -&gt; level 24</h3><p>通过类似上一关的方式查看到”cronjob_bandit24”脚本内容为：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line"></div><div class="line">myname=$(whoami)</div><div class="line"></div><div class="line"><span class="built_in">cd</span> /var/spool/<span class="variable">$myname</span></div><div class="line"><span class="built_in">echo</span> <span class="string">"Executing and deleting all scripts in /var/spool/<span class="variable">$myname</span>:"</span></div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> * .*;</div><div class="line"><span class="keyword">do</span></div><div class="line">    <span class="keyword">if</span> [ <span class="string">"<span class="variable">$i</span>"</span> != <span class="string">"."</span> -a <span class="string">"<span class="variable">$i</span>"</span> != <span class="string">".."</span> ];</div><div class="line">    <span class="keyword">then</span></div><div class="line">        <span class="built_in">echo</span> <span class="string">"Handling <span class="variable">$i</span>"</span></div><div class="line">        timeout -s 9 60 ./<span class="variable">$i</span></div><div class="line">        rm -f ./<span class="variable">$i</span></div><div class="line">    <span class="keyword">fi</span></div><div class="line"><span class="keyword">done</span></div></pre></td></tr></table></figure>
+<p>该脚本会执行并删除所列文件夹中所有文件，因此我们可以写一个shell脚本来在文件删除之前将其复制到其他文件夹。<a href="https://github.com/qinjx/30min_guides/blob/master/shell.md" target="_blank" rel="external"> shell 脚本编写教程</a>  </p>
+<p>类似之前的操作，我们在/tmp/下创建一个文件夹后在其中写脚本。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">mkdir /tmp/1900</div><div class="line"><span class="built_in">cd</span> /tmp/1900/</div><div class="line">touch script.sh</div><div class="line">vi script.sh</div></pre></td></tr></table></figure>
+<p>再写入复制内容，我们不妨将其复制为/tmp/1900/下一个名为”flag.txt”的文本。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">ls -la &gt;&gt; /tmp/1900/flag.txt</div></pre></td></tr></table></figure>
+<p>接着修改其权限，为方便起见直接777。  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">chmod 777 /tmp/1900/script.sh</div><div class="line">chmod -R 777 /tmp/1900</div></pre></td></tr></table></figure>
+<p>最后将脚本复制到之前脚本所指定的目录下。<br><code>cp ./script.sh /var/spool/bandit24</code><br>等待一到两分钟来待定时程序的下一次执行，然后即可查看”/tmp/1900/“下的flag.txt。<br>在所得结果中有许多文件和文件夹，找可疑的查看，发现’pass’<br>随即  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /var/spool/bandit/pass</div><div class="line">ls -la <span class="comment">#发现存在文件pass</span></div><div class="line">cat pass <span class="comment">#得到flag</span></div></pre></td></tr></table></figure>
+<p>[!!!!!  以上方法在文章最后一次更新前已失效]<br>[!!!!!  但是考虑到脚本是被以bandit24的身份执行，因而可直接查看flag并复制]<br>于是更改”script.sh”脚本如下：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#!/bin/bash</span></div><div class="line">flag=$(cat /etc/bandit_pass/bandit24)</div><div class="line"><span class="built_in">echo</span> <span class="variable">$flag</span> &gt;&gt; /tmp/1900/flag.txt</div></pre></td></tr></table></figure>
+<p>其余不变。<br><strong>flag：UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ</strong><br>附：<a href="https://github.com/qinjx/30min_guides/blob/master/shell.md" target="_blank" rel="external"> shell 脚本编写教程</a></p>
+
       
     </div>
 
@@ -389,7 +383,7 @@ Password matches, sending next password
   <p><span>本文标题:</span><a href="/2017/08/17/overthewire攻略/">overthewire攻略</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Benjamin 的个人博客">Benjamin</a></p>
   <p><span>发布时间:</span>2017年08月17日 - 09:08</p>
-  <p><span>最后更新:</span>2017年08月20日 - 13:08</p>
+  <p><span>最后更新:</span>2017年08月20日 - 15:08</p>
   <p><span>原始链接:</span><a href="/2017/08/17/overthewire攻略/" title="overthewire攻略">http://yoursite.com/2017/08/17/overthewire攻略/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yoursite.com/2017/08/17/overthewire攻略/"  aria-label="复制成功！"></i></span>
   </p>
