@@ -5,10 +5,10 @@
     
   <url>
     <loc>http://yoursite.com/2017/08/17/overthewire%E6%94%BB%E7%95%A5/</loc>
-    <lastmod>2017-08-21T07:57:41.459Z</lastmod>
+    <lastmod>2017-08-21T13:43:16.212Z</lastmod>
     <data>
         <display>
-        <title>overthewire攻略</title>
+        <title>overthewire bandit 攻略</title>
         <pubTime>2017-08-17T01:28:04.000Z</pubTime>
         
         <tag>linux</tag>
@@ -17,6 +17,9 @@
          
          
            
+             
+              <breadCrumb title="Overthewire" url="http://yoursite.com/categories/Overthewire/"/>
+          
         </display>
     </data>
     </url>
