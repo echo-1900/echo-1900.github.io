@@ -84,18 +84,18 @@
 
 
 
-<meta name="description" content="And there you stayed, temporarily lost at sea.">
+<meta name="description" content="level 0直接鼠标右键查看源代码即可。flag：gtVrDuiDfck831PqWsLEZy5gyDz1clto   level 0 -&amp;gt; level 1由于鼠标右键被禁止，用CTRL + U(或者F12在控制台查看源代码)即可。flag：ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi   level 1 -&amp;gt; level 2CTRL + U查看源代码发现文件 “">
 <meta name="keywords" content="web-security">
 <meta property="og:type" content="article">
 <meta property="og:title" content="overthewire natas 攻略">
 <meta property="og:url" content="http://yoursite.com/2017/08/21/overthewire-natas-攻略/index.html">
 <meta property="og:site_name" content="Benjamin&#39;s blog">
-<meta property="og:description" content="And there you stayed, temporarily lost at sea.">
+<meta property="og:description" content="level 0直接鼠标右键查看源代码即可。flag：gtVrDuiDfck831PqWsLEZy5gyDz1clto   level 0 -&amp;gt; level 1由于鼠标右键被禁止，用CTRL + U(或者F12在控制台查看源代码)即可。flag：ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi   level 1 -&amp;gt; level 2CTRL + U查看源代码发现文件 “">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-08-21T13:49:05.014Z">
+<meta property="og:updated_time" content="2017-08-22T06:32:41.434Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="overthewire natas 攻略">
-<meta name="twitter:description" content="And there you stayed, temporarily lost at sea.">
+<meta name="twitter:description" content="level 0直接鼠标右键查看源代码即可。flag：gtVrDuiDfck831PqWsLEZy5gyDz1clto   level 0 -&amp;gt; level 1由于鼠标右键被禁止，用CTRL + U(或者F12在控制台查看源代码)即可。flag：ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi   level 1 -&amp;gt; level 2CTRL + U查看源代码发现文件 “">
 
 
 
@@ -326,7 +326,20 @@
       
 
       
-        
+        <h3 id="level_0"><a href="#level_0" class="headerlink" title="level 0"></a>level 0</h3><p>直接鼠标右键查看源代码即可。<br><strong>flag：gtVrDuiDfck831PqWsLEZy5gyDz1clto</strong>  </p>
+<h3 id="level_0_-_26gt_3B_level_1"><a href="#level_0_-_26gt_3B_level_1" class="headerlink" title="level 0 -&gt; level 1"></a>level 0 -&gt; level 1</h3><p>由于鼠标右键被禁止，用<code>CTRL + U</code>(或者F12在控制台查看源代码)即可。<br><strong>flag：ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi</strong>  </p>
+<h3 id="level_1_-_26gt_3B_level_2"><a href="#level_1_-_26gt_3B_level_2" class="headerlink" title="level 1 -&gt; level 2"></a>level 1 -&gt; level 2</h3><p><code>CTRL + U</code>查看源代码发现文件 “files/pixel.png”，于是尝试访问<a href="http://natas2.natas.labs.overthewire.org/files/" target="_blank" rel="external">files文档</a>，发现users.txt，打开即可。<br><strong>flag：sJIJNW6ucpu6HPZ1ZAchaDtwd7oGrD14</strong>  </p>
+<h3 id="level_2_-_26gt_3B_level_3"><a href="#level_2_-_26gt_3B_level_3" class="headerlink" title="level 2 -&gt; level 3"></a>level 2 -&gt; level 3</h3><p>查看源代码后由提示”Not even Google will find it this time”猜测可能是有’robots.txt’(也可扫后台来找)，于是访问”/robots.txt”，发现有文档”/s3cr3t/“禁止搜索引擎爬取，于是访问之，再打开”users.txt”即可。<br><strong>flag：Z9tkRkWmpt9Qr7XrR5jWRkgOU901swEZ</strong>  </p>
+<h3 id="level_3_-_26gt_3B_level_4"><a href="#level_3_-_26gt_3B_level_4" class="headerlink" title="level 3 -&gt; level 4"></a>level 3 -&gt; level 4</h3><p>根据提示可得我们可以知道要想访问该页面内容需使<a href="http://www.fwolf.com/blog/post/320" target="_blank" rel="external">referer</a>的值为“natas5.natas.labs.overthewire.org”， 因而使用burpsuite抓包后修改referer即可。<br><strong>flag：iX6IOfmpN7AYOQGPwtn3fXpbaJVJcHfq</strong>  </p>
+<h3 id="level_4_-_26gt_3B_level_5"><a href="#level_4_-_26gt_3B_level_5" class="headerlink" title="level 4 -&gt; level 5"></a>level 4 -&gt; level 5</h3><p>同样是burpsuite抓包，发现cookie中有关键字<code>loggedin</code>的值为0，将其改为1后刷新界面<br>即可。<br><strong>flag：aGoY4q2Dc6MgDq4oL4YtoKtyAg9PeHa1</strong>  </p>
+<h3 id="level_5_-_26gt_3B_level_6"><a href="#level_5_-_26gt_3B_level_6" class="headerlink" title="level 5 -&gt; level 6"></a>level 5 -&gt; level 6</h3><p>查看源码后直接发现文档<code>includes/secret.inc</code>以及密码验证函数，于是访问”includes/secret.inc”并发现secret的值，返回提交界面提交即可。<br><strong>flag：7z3hEENjQtflzgnT29q7wAvMNfZdh0i9</strong>  </p>
+<h3 id="level_6_-_26gt_3B_level_7"><a href="#level_6_-_26gt_3B_level_7" class="headerlink" title="level 6 -&gt; level 7"></a>level 6 -&gt; level 7</h3><p>查看源码后发现提示<code>password for webuser natas8 is in /etc/natas_webpass/natas8</code>， 于是将该目录作为<code>page</code>的值提交即可。<br><strong>flag：DBfUBfqQG69KvJvJ1iAbMoIpwSNQ9bWe</strong><br>附：<a href="https://www.secpulse.com/archives/55769.html" target="_blank" rel="external">本地文件包含漏洞(LFI)的利用</a>  </p>
+<h3 id="level_7_-_26gt_3B_level_8"><a href="#level_7_-_26gt_3B_level_8" class="headerlink" title="level 7 -&gt; level 8"></a>level 7 -&gt; level 8</h3><p>查看源代码后发现验证方式是将所提交字符串经过几次转换后与一个已知的字符串进行比对，且转换都可逆，于是一行php搞定。  </p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">echo</span> base64_decode(strrev(hex2bin(<span class="string">'3d3d516343746d4d6d6c315669563362'</span>)));</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<p>得到字符串<code>oubWYf2kBq</code>,提交即可。<br><strong>flag：W0mMhUcRRnG8dcghE4qvk3JA9lGt8nDl</strong><br>附：<a href="http://php.net/manual/zh/function.hex2bin.php" target="_blank" rel="external">php hex2bin函数</a>  </p>
+<h3 id="level_8_-_26gt_3B_level_9"><a href="#level_8_-_26gt_3B_level_9" class="headerlink" title="level 8 -&gt; level 9"></a>level 8 -&gt; level 9</h3><p>这是一个搜索框，查看源代码后发现服务器首先会检查url中<code>needle</code>(即待检索值)的值是否为空，如果不为空，则将其赋给变量<code>key</code>，再执行<code>grep -i $key dictionary.txt</code>，这儿没有任何的过滤且由先前已知没关的密码都存于”/etc/natas_webpass/“文件夹中，因而我们可构造待查询值为<code>; cat /etc/natas_webpass/natas10 ;</code>，此时服务器端查询语句则变为<code>grep -i ; cat /etc/natas_webpass/natas10 ; dictionary.txt</code>，即执行了三条命令，其中第二条命令会返回密码。<br><strong>flag：nOpp1igQAkUzaI1GUUjzn1bFVj7xCNzu</strong><br>附：<a href="http://php.net/manual/zh/function.passthru.php" target="_blank" rel="external">php passthru函数</a>  </p>
+<h3 id="level_9_-_26gt_3B_level_10"><a href="#level_9_-_26gt_3B_level_10" class="headerlink" title="level 9 -&gt; level 10"></a>level 9 -&gt; level 10</h3><p>此关较上一关而言多了一个过滤函数，即提交的查询值中不能出现<code>; | &amp;</code>中的任意一个。于是考虑使用通配符 <code>*</code> 来进行文件的全部查询，即提交<code>.* /etc/natas_webpass/natas11</code>，则查询语句变为<code>grep -i .* /etc/natas_webpass/natas11 dictionary.txt</code>，此时返回”/etc/natas_webpass/natas11”目录下的所有文件以及”dictionary.txt”中的所有内容。<br><strong>flag：U82q5TCMMQ9xuFoI3dYX61s7OZD9JKoK</strong><br>附：<a href="http://php.net/manual/zh/function.preg-match.php" target="_blank" rel="external">php preg_match函数</a>  </p>
+<h3 id="level_10_-_26gt_3B_level_11"><a href="#level_10_-_26gt_3B_level_11" class="headerlink" title="level 10 -&gt; level 11"></a>level 10 -&gt; level 11</h3>
       
     </div>
 
@@ -344,7 +357,7 @@
   <p><span>本文标题:</span><a href="/2017/08/21/overthewire-natas-攻略/">overthewire natas 攻略</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Benjamin 的个人博客">Benjamin</a></p>
   <p><span>发布时间:</span>2017年08月21日 - 21:08</p>
-  <p><span>最后更新:</span>2017年08月21日 - 21:08</p>
+  <p><span>最后更新:</span>2017年08月22日 - 14:08</p>
   <p><span>原始链接:</span><a href="/2017/08/21/overthewire-natas-攻略/" title="overthewire natas 攻略">http://yoursite.com/2017/08/21/overthewire-natas-攻略/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://yoursite.com/2017/08/21/overthewire-natas-攻略/"  aria-label="复制成功！"></i></span>
   </p>
@@ -478,7 +491,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -543,7 +556,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#level_0"><span class="nav-number">1.</span> <span class="nav-text">level 0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_0_-_26gt_3B_level_1"><span class="nav-number">2.</span> <span class="nav-text">level 0 -> level 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_1_-_26gt_3B_level_2"><span class="nav-number">3.</span> <span class="nav-text">level 1 -> level 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_2_-_26gt_3B_level_3"><span class="nav-number">4.</span> <span class="nav-text">level 2 -> level 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_3_-_26gt_3B_level_4"><span class="nav-number">5.</span> <span class="nav-text">level 3 -> level 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_4_-_26gt_3B_level_5"><span class="nav-number">6.</span> <span class="nav-text">level 4 -> level 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_5_-_26gt_3B_level_6"><span class="nav-number">7.</span> <span class="nav-text">level 5 -> level 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_6_-_26gt_3B_level_7"><span class="nav-number">8.</span> <span class="nav-text">level 6 -> level 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_7_-_26gt_3B_level_8"><span class="nav-number">9.</span> <span class="nav-text">level 7 -> level 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_8_-_26gt_3B_level_9"><span class="nav-number">10.</span> <span class="nav-text">level 8 -> level 9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_9_-_26gt_3B_level_10"><span class="nav-number">11.</span> <span class="nav-text">level 9 -> level 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_10_-_26gt_3B_level_11"><span class="nav-number">12.</span> <span class="nav-text">level 10 -> level 11</span></a></li></ol></div>
             
           </div>
         </section>
